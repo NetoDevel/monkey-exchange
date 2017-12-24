@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.netodevel.model.Person;
 import br.com.netodevel.service.PersonService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @RestController
 public class PersonController {
@@ -33,8 +36,10 @@ public class PersonController {
 	}
 	
 	@PostMapping("/v1/persons")
-	public ResponseEntity<Person> create(@RequestBody Person person) {
-		return new ResponseEntity<Person>((Person) personService.save(person), HttpStatus.CREATED);
+	public @ResponseBody String create(@RequestBody Person person) {
+		String token = Jwts.builder().setSubject(person.getEmail()).signWith(SignatureAlgorithm.HS512, "chave").compact();
+		personService.save(person);
+		return token;
 	}
 
 	@PutMapping("/v1/persons")
