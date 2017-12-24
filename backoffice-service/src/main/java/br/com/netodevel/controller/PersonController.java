@@ -37,9 +37,10 @@ public class PersonController {
 	
 	@PostMapping("/v1/persons")
 	public @ResponseBody String create(@RequestBody Person person) {
-		String token = Jwts.builder().setSubject(person.getEmail()).signWith(SignatureAlgorithm.HS512, "chave").compact();
-		personService.save(person);
-		return token;
+		Person personInserted = personService.save(person);
+		String token = Jwts.builder().setSubject(String.valueOf(personInserted.getId())).signWith(SignatureAlgorithm.HS512, "chave").compact();
+		String url = "http://localhost:8080/api/token/register?url_token=" + token;
+		return url;
 	}
 
 	@PutMapping("/v1/persons")
