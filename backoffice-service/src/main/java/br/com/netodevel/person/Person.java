@@ -1,4 +1,4 @@
-package br.com.netodevel.model;
+package br.com.netodevel.person;
 import java.io.Serializable;
 
 import javax.persistence.Column;

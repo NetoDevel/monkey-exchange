@@ -1,4 +1,4 @@
-package br.com.netodevel.controller;
+package br.com.netodevel.web;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.netodevel.model.Person;
-import br.com.netodevel.service.PersonService;
+import br.com.netodevel.person.Person;
+import br.com.netodevel.person.PersonService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
